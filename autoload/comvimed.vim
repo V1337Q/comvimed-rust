@@ -49,3 +49,12 @@ function! comvimed#RunRustTests()
         echo "No unit test found at the cursor position."
     endif
 endfunction
+
+function! comvimed#GetRidOfUglyAssBlocks()
+  highlight SignColumn ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
+  if !exists('g:yourplugin_highlights_defined')
+    let g:yourplugin_highlights_defined = 1
+    highlight! link SignColumn LineNr
+  endif
+endfunction

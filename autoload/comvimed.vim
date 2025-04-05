@@ -13,7 +13,6 @@ endfunction
 
 command! RustTests call FunctSearch()
 
-
 function! comvimed#RenderPlayButton()
     let l:main_line = comvimed#FindMainFunction()
     if l:main_line > 0

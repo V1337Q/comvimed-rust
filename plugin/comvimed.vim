@@ -7,5 +7,6 @@ nnoremap <silent> <leader>r :call comvimed#RunRust()<CR>
 nnoremap <silent> <leader>u :call comvimed#FunctSearch()<CR>
 nnoremap <silent> <leader>t :call comvimed#RunRustTests()<CR>
 nnoremap <silent> <leader>h :below terminal<CR>
+nnoremap <silent> <leader>x :call comvimed#Runs()<CR>
 
 call comvimed#GetRidOfUglyAssBlocks()

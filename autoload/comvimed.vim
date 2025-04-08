@@ -57,3 +57,59 @@ function! comvimed#GetRidOfUglyAssBlocks()
     highlight! link SignColumn LineNr
   endif
 endfunction
+
+function! comvimed#CppCompile()
+	let l:file_name = expand('%t')
+	let l:file_name_without_file_type = expand('%:t:r')
+	
+	below terminal
+	call feedkeys("g++ " . l:file_name . " -o " . l:file_name_without_file_type . "\<CR>")
+	call feedkeys("./" .l:file_name_without_file_type . "\<CR>")
+endfunction
+
+function comvimed#Runs()
+	if &filetype == 'cpp'
+		call comvimed#CppCompile()
+	elseif &filetype == 'rust'
+		call comvimed#RunRust()
+	elseif &filetype == 'python'
+		call comvimed#PythonComp()
+	elseif &filetype == 'go'
+		call comvimed#GoComp()
+	elseif &filetype == 'c'
+		call comvimed#cComp()
+	else 
+		echo "Action not available yet."
+endif
+endfunction
+
+function! comvimed#PythonComp()
+	let l:file_name_py = expand('%t')
+	" let l:file_name_py_noex = expand('%:t:r')
+
+	below terminal 
+	call feedkeys("python " . l:file_name_py . "\<CR>")
+
+endfunction
+
+function! comvimed#GoComp()
+	let l:file_name_go = expand('%t')
+	let l:file_name_go_noex = expand('%:t:r')
+
+	below terminal
+	call feedkeys("go build " . l:file_name_go . "\<CR>")
+	call feedkeys("./" . l:file_name_go_noex . "\<CR>")
+
+endfunction
+
+function! comvimed#cComp()
+	let l:file_name_c = expand('%t')
+	let l:file_name_c_noex = expand('%:t:r')
+
+	below terminal 
+	call feedkeys("gcc " .l:file_name_c . " -o " . l:file_name_c_noex . "\<CR>")
+	call feedkeys("./" . l:file_name_c_noex . "\<CR>")
+
+endfunction
+
+" Bangsat

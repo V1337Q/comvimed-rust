@@ -124,6 +124,22 @@ function! comvimed#PythonComp()
 
 endfunction
 
+function! comvimed#PyRunUnitTests()
+	if executable('pytest')
+		call feedkeys("pytest \<CR>")
+	elseif executable('pacman')
+		call feedkeys("sudo pacman -S pytest \<CR>")
+		call feedkeys("pytest")
+	elseif executable('apt')
+		call feedkeys("sudo apt install pytest \<CR>")
+	elseif executable('dnf')
+		call feedkeys("dnf install pytest")
+	else 
+		echo "Package manager not supported yet :("
+endif
+endfunction
+
+
 function! comvimed#GoComp()
 	let l:file_name_go = expand('%t')
 	let l:file_name_go_noex = expand('%:t:r')
@@ -249,3 +265,5 @@ endfunction
 " 		echo "No unit tests found"
 " endif
 " endfunction
+
+

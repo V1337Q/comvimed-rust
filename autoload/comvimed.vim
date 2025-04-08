@@ -13,6 +13,7 @@ endfunction
 
 command! RustTests call FunctSearch()
 
+
 function! comvimed#RenderPlayButton()
     let l:main_line = comvimed#FindMainFunction()
     if l:main_line > 0
@@ -58,36 +59,66 @@ function! comvimed#GetRidOfUglyAssBlocks()
   endif
 endfunction
 
+" function! comvimed#cCompile()
+" 	" let l:name_file = buffname("%")
+" 	let l:file_name = expand('%:t')
+" 	let l:file_name_noex = expand('%:t:r')
+
+" 	" let l:condition = 1
+
+" 	" if l:condition
+" 	" nnoremap <silent> <leader>n :call comvimed#cCompile()<CR>
+" 		below terminal
+" 		call feedkeys("g++ " . l:file_name . " -o " . l:file_name_noex . "\<CR>" )
+
+" 		call feedkeys("./" . l:file_name_noex . "\<CR>")
+" 	" call feedkeys("./comvimed")
+" " endif
+" endfunction
+
+" function! comvimed#actionControl()
+" 	if &filetype == 'cpp'
+" 		call comvimed#cCompile()
+" 	elseif &filetype == 'rust'
+" 		call comvimed#RunRust()
+" 	else 
+" 		echo "No action"
+" endif
+" endfunction
+function! comvimed#Runs()
+    let filetype_actions = {
+        \ 'cpp': 'comvimed#CppCompile',
+        \ 'rust': 'comvimed#RunRust',
+        \ 'python': 'comvimed#PythonComp',
+        \ 'go': 'comvimed#GoComp',
+        \ 'c': 'comvimed#cComp',
+        \ 'java': 'comvimed#JavaComp',
+        \ 'asm': 'comvimed#AsmComp',
+        \ 'lua': 'comvimed#LuaComp',
+    	\ 'kotlin': 'comvimed#KotlinComp'
+    \ }
+
+    if has_key(filetype_actions, &filetype)
+        call function(filetype_actions[&filetype])()
+    else
+        echo "Action not available yet."
+    endif
+endfunction
+
 function! comvimed#CppCompile()
 	let l:file_name = expand('%t')
 	let l:file_name_without_file_type = expand('%:t:r')
-	
+
 	below terminal
 	call feedkeys("g++ " . l:file_name . " -o " . l:file_name_without_file_type . "\<CR>")
 	call feedkeys("./" .l:file_name_without_file_type . "\<CR>")
-endfunction
-
-function comvimed#Runs()
-	if &filetype == 'cpp'
-		call comvimed#CppCompile()
-	elseif &filetype == 'rust'
-		call comvimed#RunRust()
-	elseif &filetype == 'python'
-		call comvimed#PythonComp()
-	elseif &filetype == 'go'
-		call comvimed#GoComp()
-	elseif &filetype == 'c'
-		call comvimed#cComp()
-	else 
-		echo "Action not available yet."
-endif
 endfunction
 
 function! comvimed#PythonComp()
 	let l:file_name_py = expand('%t')
 	" let l:file_name_py_noex = expand('%:t:r')
 
-	below terminal 
+	below terminal
 	call feedkeys("python " . l:file_name_py . "\<CR>")
 
 endfunction
@@ -106,10 +137,78 @@ function! comvimed#cComp()
 	let l:file_name_c = expand('%t')
 	let l:file_name_c_noex = expand('%:t:r')
 
-	below terminal 
+	below terminal
 	call feedkeys("gcc " .l:file_name_c . " -o " . l:file_name_c_noex . "\<CR>")
 	call feedkeys("./" . l:file_name_c_noex . "\<CR>")
+endfunction
+
+function! comvimed#cUnitTestRun()
+	let files = readdir(getcwd())
+	let first_file = files[0]
+	echo first_file
+endfunction
+
+"files[0] – first file
+
+"files[-1] – last file
+
+"len(files) – total number of files
+
+"index(files, 'somefile.txt') – find the index of a specific file
+
+function! comvimed#JavaComp()
+	let l:file_name_java = expand('%t')
+	let l:file_name_java_noex = expand('%:t:r')
+
+	below terminal
+	call feedkeys("javac " . l:file_name_java . "\<CR>")
+	call feedkeys("java " . l:file_name_java_noex . "\<CR>")
 
 endfunction
 
-" Bangsat
+function! comvimed#AsmComp()
+	let l:file_name_asm = expand('%t')
+	let l:file_name_asm_noex = expand('%:t:r')
+
+	below terminal
+	call feedkeys("nasm -f elf64 -o " . l:file_name_asm_noex . ".o " . l:file_name_asm . "\<CR>")
+	call feedkeys("ld -o " . l:file_name_asm_noex . " " . l:file_name_asm_noex . ".o\<CR>")
+	call feedkeys("chmod +x " . l:file_name_asm_noex . "\<CR>")
+	call feedkeys("./" . l:file_name_asm_noex . "\<CR>")
+endfunction
+
+function! comvimed#LuaComp()
+	let l:file_name_lua = expand('%t')
+	" let l:file_name_lua_noex = expand('%:t:r')
+
+	below terminal
+	call feedkeys("lua " . l:file_name_lua . "\<CR>")
+endfunction
+
+" kotlinc hello.kt -include-runtime -d hello.jar
+" java -jar hello.jar
+
+
+function! comvimed#KotlinComp()
+	let l:file_name_kt = expand('%t')
+	let l:file_name_kt_noex = expand('%:t:r')
+
+	below terminal
+	call feedkeys("kotlinc " . l:file_name_kt . " -include-runtime -d " . l:file_name_kt_noex . ".jar \<CR>")
+	call feedkeys("java -jar " . l:file_name_kt_noex . ".jar \<CR>")
+endfunction
+
+function! comvimed#RunTestC()
+    	let l:current_line = getline('.')
+	let files = readdir(getcwd())
+	let first_file = files[0]
+
+    if l:current_line =~ '^\s*\def'
+
+        below terminal
+        call feedkeys("gcc " . l:test_name .  "\<CR>")
+    else
+        echo "No unit test found at the cursor position."
+    endif
+endfunction
+

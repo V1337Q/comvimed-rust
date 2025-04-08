@@ -95,7 +95,8 @@ function! comvimed#Runs()
         \ 'java': 'comvimed#JavaComp',
         \ 'asm': 'comvimed#AsmComp',
         \ 'lua': 'comvimed#LuaComp',
-    	\ 'kotlin': 'comvimed#KotlinComp'
+    	\ 'kotlin': 'comvimed#KotlinComp',
+    	\ 'ruby': 'comvimed#RubyCompile'
     \ }
 
     if has_key(filetype_actions, &filetype)
@@ -196,6 +197,14 @@ function! comvimed#KotlinComp()
 	below terminal
 	call feedkeys("kotlinc " . l:file_name_kt . " -include-runtime -d " . l:file_name_kt_noex . ".jar \<CR>")
 	call feedkeys("java -jar " . l:file_name_kt_noex . ".jar \<CR>")
+endfunction
+
+function! comvimed#RubyCompile()
+	let l:file_name_rb = expand('%t')
+	" let l:file_name_rb_noex = expand('%:t:r')
+
+	below terminal
+	call feedkeys("ruby " . l:file_name_rb . "\<CR>")
 endfunction
 
 function! comvimed#RunTestC()

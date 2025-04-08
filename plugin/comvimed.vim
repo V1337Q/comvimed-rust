@@ -8,7 +8,7 @@ nnoremap <silent> <leader>u :call comvimed#FunctSearch()<CR>
 nnoremap <silent> <leader>t :call comvimed#RunRustTests()<CR>
 nnoremap <silent> <leader>h :below terminal<CR>
 nnoremap <silent> <leader>x :call comvimed#Runs()<CR>
-nnoremap <silent> <leader>f :call comvimed#cUnitTestRun()<CR>
+nnoremap <silent> <leader>e :call comvimed#UnitTestRuns()<CR>
 " nnoremap <silent> <leader>. :call comvimed#KotlinComp()<CR>
 
 call comvimed#GetRidOfUglyAssBlocks()

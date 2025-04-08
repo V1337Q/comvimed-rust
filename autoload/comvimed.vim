@@ -25,6 +25,8 @@ endfunction
 function! comvimed#RunRust()
 	if filereadable('Cargo.toml')
 		below terminal
+		echom "running command: "
+		redraw
 		call feedkeys("cargo run\<CR>")
 	else
 		echo "Cargo.toml not found in the current directory."
@@ -156,6 +158,7 @@ function! comvimed#cComp()
 
 	below terminal
 	call feedkeys("gcc " .l:file_name_c . " -o " . l:file_name_c_noex . "\<CR>")
+	echo "running command: "
 	call feedkeys("./" . l:file_name_c_noex . "\<CR>")
 endfunction
 

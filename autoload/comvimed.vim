@@ -1,3 +1,4 @@
+
 function! comvimed#FindMainFunction()
 	let l:main_line = search('fn\s\+main\s*()', 'nw')
 	if l:main_line > 0
@@ -126,21 +127,23 @@ function! comvimed#PythonComp()
 
 endfunction
 
-function! comvimed#PyRunUnitTests()
+function! comvimed#PythonRunUnitTests()
 	if executable('pytest')
+		below terminal
 		call feedkeys("pytest \<CR>")
 	elseif executable('pacman')
+		below terminal
 		call feedkeys("sudo pacman -S pytest \<CR>")
-		call feedkeys("pytest")
 	elseif executable('apt')
-		call feedkeys("sudo apt install pytest \<CR>")
+		below terminal
+		call feedkeys("sudo apt install python3-pytest \<CR>")
 	elseif executable('dnf')
+		below terminal
 		call feedkeys("dnf install pytest")
 	else 
 		echo "Package manager not supported yet :("
 endif
 endfunction
-
 
 function! comvimed#GoComp()
 	let l:file_name_go = expand('%t')
@@ -162,11 +165,40 @@ function! comvimed#cComp()
 	call feedkeys("./" . l:file_name_c_noex . "\<CR>")
 endfunction
 
-function! comvimed#cUnitTestRun()
-	let files = readdir(getcwd())
-	let first_file = files[0]
-	echo first_file
+" gcc -o test_example test_example.c -lcheck -lm -lpthread -lrt
+"./test_example
+
+function! comvimed#CUnitTestRun()
+	let l:file_name = expand('%t')
+	let l:file_name_noex = expand('%:t:r')
+
+	" if executable('check')
+
+		below terminal 
+		call feedkeys("gcc -o " . l:file_name_noex . " " . l:file_name . " -lcheck -lm -lpthread -lrt \<CR>")
+		call feedkeys("./" . l:file_name . "\<CR>")
+
+	" elseif executable('pacman')
+	" 	below terminal
+	" 	call feedkeys("sudo pacman -S check \<CR>")
+	" 	call feedkeys("gcc -o " . l:file_name_noex . " " . l:file_name . " -lcheck -lm -lpthread -lrt \<CR>")
+	" 	call feedkeys("./" . l:file_name . "\<CR>")
+	" elseif executable('apt')
+	" 	below terminal
+	" 	call feedkeys("sudo apt install check \<CR>")
+	" 	call feedkeys("gcc -o " . l:file_name_noex . " " . l:file_name . " -lcheck -lm -lpthread -lrt \<CR>")
+	" 	call feedkeys("./" . l:file_name . "\<CR>")
+	" else 
+	" 	echo "Wait, okay."
+
+	" endif
 endfunction
+
+" function! comvimed#cUnitTestRun()
+" 	let files = readdir(getcwd())
+" 	let first_file = files[0]
+" 	echo first_file
+" endfunction
 
 "files[0] – first file
 
@@ -244,9 +276,9 @@ function! comvimed#UnitTestRuns()
 	let filetype_actions = {
 				\ 'cpp': 'comvimed#CppCompile',
 				\ 'rust': 'comvimed#RunRustTests',
-				\ 'python': 'comvimed#PythonComp',
+				\ 'python': 'comvimed#PythonRunUnitTests',
 				\ 'go': 'comvimed#GoComp',
-				\ 'c': 'comvimed#cComp',
+				\ 'c': 'comvimed#CUnitTestRun',
 				\ 'java': 'comvimed#JavaComp',
 				\ 'asm': 'comvimed#AsmComp',
 				\ 'lua': 'comvimed#LuaComp',

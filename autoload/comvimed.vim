@@ -1,4 +1,3 @@
-
 function! comvimed#FindMainFunction()
 	let l:main_line = search('fn\s\+main\s*()', 'nw')
 	if l:main_line > 0
@@ -258,6 +257,27 @@ function! comvimed#RubyCompile()
 	call feedkeys("ruby " . l:file_name_rb . "\<CR>")
 endfunction
 
+function! comvimed#RubyRunTests()
+	let l:file_name = expand('%:t')
+
+	" if file_name =~ '_rspec$'
+	if l:file_name[-6:] = '_rspec'
+		if executable('minitest')
+			below terminal
+			call feedkeys("rspec " . l:file_name . "\<CR>")
+		else
+			below terminal
+			call feedkeys("gem install rspec \<CR>")
+		endif
+
+		" below terminal
+		" call feedkeys("rspec " . l:file_name . "\<CR>")
+	else
+		echo "file naming convention is incorrect"
+endif
+endfunction
+
+
 function! comvimed#RunTestC()
 	let l:current_line = getline('.')
 	let files = readdir(getcwd())
@@ -283,7 +303,7 @@ function! comvimed#UnitTestRuns()
 				\ 'asm': 'comvimed#AsmComp',
 				\ 'lua': 'comvimed#LuaComp',
 				\ 'kotlin': 'comvimed#KotlinComp',
-				\ 'ruby': 'comvimed#RubyCompile'
+				\ 'ruby': 'comvimed#RubyRunTests'
 				\ }
 
 	if has_key(filetype_actions, &filetype)

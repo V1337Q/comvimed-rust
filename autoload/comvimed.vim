@@ -236,6 +236,19 @@ function! comvimed#LuaComp()
 	call feedkeys("lua " . l:file_name_lua . "\<CR>")
 endfunction
 
+function! comvimed#LuaRunTests()
+	if executable('busted')
+		below terminal
+		call feedkeys("busted \<CR>")
+	elseif executable('pacman')
+		below terminal
+		call feedkeys("sudo pacman -Sy busted \<CR>")
+	else
+		echo "bangsat bangsat"
+endif
+endfunction
+
+
 " kotlinc hello.kt -include-runtime -d hello.jar
 " java -jar hello.jar
 
@@ -301,7 +314,7 @@ function! comvimed#UnitTestRuns()
 				\ 'c': 'comvimed#CUnitTestRun',
 				\ 'java': 'comvimed#JavaComp',
 				\ 'asm': 'comvimed#AsmComp',
-				\ 'lua': 'comvimed#LuaComp',
+				\ 'lua': 'comvimed#LuaRunTests',
 				\ 'kotlin': 'comvimed#KotlinComp',
 				\ 'ruby': 'comvimed#RubyRunTests'
 				\ }

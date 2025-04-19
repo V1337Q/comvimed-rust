@@ -154,6 +154,19 @@ function! comvimed#GoComp()
 
 endfunction
 
+function! comvimed#GoRunTests()
+	let filename = expand('%:t:r')
+
+	" if filename[-5:] == '_test'
+	if filename =~ '_test$'
+		below terminal
+		call feedkeys("go test \<CR>")
+
+	else
+		echo "Naming convention is wrong."
+endif
+endfunction
+
 function! comvimed#cComp()
 	let l:file_name_c = expand('%t')
 	let l:file_name_c_noex = expand('%:t:r')
@@ -310,7 +323,7 @@ function! comvimed#UnitTestRuns()
 				\ 'cpp': 'comvimed#CppCompile',
 				\ 'rust': 'comvimed#RunRustTests',
 				\ 'python': 'comvimed#PythonRunUnitTests',
-				\ 'go': 'comvimed#GoComp',
+				\ 'go': 'comvimed#GoRunTests',
 				\ 'c': 'comvimed#CUnitTestRun',
 				\ 'java': 'comvimed#JavaComp',
 				\ 'asm': 'comvimed#AsmComp',

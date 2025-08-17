@@ -32,17 +32,29 @@ nnoremap <silent> <leader>t :call comvimed#RunRustTests()<CR>
 ```
 <leader>t to run test functions
 
-## Showcase
+# Showcase
 
-### Search for functions
+## Search for functions
 
 ![Alt text](./images/search_function.gif)
 
-### Run main function
+## Run main function
 
+### Rust
 ![Alt text](./images/main_function.gif)
 
-### Run test funtions
+### C++
+![Alt text](./images/cpp.gif)
+
+### C
+![Alt text](./images/c.gif)
+
+### Python
+![Alt text](./images/py.gif)
+
+## And many much more languages.
+
+## Run test funtions
 
 ![Alt text](./images/unit_tests.gif)
 

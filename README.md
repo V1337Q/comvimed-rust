@@ -23,18 +23,20 @@ nnoremap <silent> <leader>r :call comvimed#RunRust()<CR>
 ```
 
 
-### `<leader>`r to run the main function
+### `<leader>r` to run the main function
 
 
-```
+```vim
 nnoremap <silent> <leader>u :call comvimed#FunctSearch()<CR>
 ```
-<leader>u to search for functions
 
-```
+`<leader>u` to search for functions
+
+
+```vim
 nnoremap <silent> <leader>t :call comvimed#RunRustTests()<CR>
 ```
-<leader>t to run test functions
+`<leader>t` to run test functions
 
 # Showcase
 

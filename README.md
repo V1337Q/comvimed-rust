@@ -22,9 +22,8 @@ nnoremap <silent> <leader>r :call comvimed#RunRust()<CR>
 
 ```
 
-```
-<leader>r to run the main function
-```
+
+### <leader>r to run the main function
 
 
 ```

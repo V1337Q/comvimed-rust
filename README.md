@@ -9,7 +9,7 @@ A vim plugin to run Rust main function and unit tests within the file.
 
 1.  Clone the repository
 2.  Copy the directory [comvimed-rust] into 
-```
+```bash
 ~/.vim/plugged/
 ```
 
@@ -19,6 +19,7 @@ You can actually customize the Keymaps inside the plugin folder. The default rea
 
 ```vim
 nnoremap <silent> <leader>r :call comvimed#RunRust()<CR>
+
 ```
 <leader>r to run the main function
 

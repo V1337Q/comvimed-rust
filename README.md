@@ -21,7 +21,9 @@ You can actually customize the Keymaps inside the plugin folder. The default rea
 nnoremap <silent> <leader>r :call comvimed#RunRust()<CR>
 
 ```
-<leader>r to run the main function
+
+'<leader>'r to run the main function
+
 
 ```
 nnoremap <silent> <leader>u :call comvimed#FunctSearch()<CR>

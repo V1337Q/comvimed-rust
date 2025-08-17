@@ -1,6 +1,8 @@
 # comvimed
 A vim plugin to run Rust main function and unit tests within the file.
 
+![Alt text](./images/rust.gif)
+
 ## Installation
 
 ### Manual Installation

@@ -17,9 +17,8 @@ A vim plugin to run Rust main function and unit tests within the file.
 
 You can actually customize the Keymaps inside the plugin folder. The default reads: 
 
-```
+```vim
 nnoremap <silent> <leader>r :call comvimed#RunRust()<CR>
-
 ```
 <leader>r to run the main function
 

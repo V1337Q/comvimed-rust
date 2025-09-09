@@ -1,6 +1,21 @@
 # comvimed
 A vim plugin to run Rust main function and unit tests within the file.
 
+<p align="center">
+  <a href="https://github.com/V1337Q/comvimed-rust/stargazers">
+    <img
+      alt="Stargazers"
+      src="https://img.shields.io/github/stars/V1337Q/comvimed-rust?style=for-the-badge&logo=starship&color=78dba9&logoColor=b6beca&labelColor=1a1e24"
+    >
+  </a>
+  <a href="https://github.com/V1337Q/comvimed-rust/issues">
+    <img
+      alt="Issues"
+      src="https://img.shields.io/github/issues/V1337Q/comvimed-rust?style=for-the-badge&logo=gitbook&color=70a5eb&logoColor=b6beca&labelColor=1a1e24"
+    >
+  </a>
+</p>
+
 ![Alt text](./images/rust.gif)
 
 ## Installation

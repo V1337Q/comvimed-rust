@@ -1,5 +1,5 @@
 # comvimed
-A vim plugin to run Rust main function and unit tests within the file.
+A vim plugin to run Rust main function and unit tests within the buffer.
 
 <p align="center">
   <a href="https://github.com/V1337Q/comvimed-rust/stargazers">
